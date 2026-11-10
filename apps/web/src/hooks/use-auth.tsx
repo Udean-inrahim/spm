@@ -1,7 +1,16 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { authStorage, ApiRequestError } from '@/lib/api';
-import { loginRequest, meRequest, registerRequest } from '@/lib/queries';
+import {
+  loginRequest,
+  meRequest,
+  registerRequest,
+  requestResetRequest,
+  resendVerificationRequest,
+  resetPasswordRequest,
+  verifyEmailRequest,
+  type RegisterPending,
+} from '@/lib/queries';
 import type { User } from '@dirly/shared';
 
 interface AuthContextValue {
@@ -9,7 +18,11 @@ interface AuthContextValue {
   loading: boolean;
   isAdmin: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string) => Promise<RegisterPending>;
+  verifyEmail: (email: string, code: string) => Promise<void>;
+  resendVerification: (email: string) => Promise<{ demoCode?: string }>;
+  requestReset: (email: string) => Promise<{ demoCode?: string }>;
+  resetPassword: (email: string, code: string, password: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -48,11 +61,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(res.user);
   }
 
-  async function register(name: string, email: string, password: string): Promise<void> {
-    const res = await registerRequest(name, email, password);
+  async function register(
+    name: string,
+    email: string,
+    password: string,
+  ): Promise<RegisterPending> {
+    return registerRequest(name, email, password);
+  }
+
+  async function verifyEmail(email: string, code: string): Promise<void> {
+    const res = await verifyEmailRequest(email, code);
     authStorage.token = res.token;
     queryClient.clear();
     setUser(res.user);
+  }
+
+  async function resendVerification(email: string): Promise<{ demoCode?: string }> {
+    return resendVerificationRequest(email);
+  }
+
+  async function requestReset(email: string): Promise<{ demoCode?: string }> {
+    return requestResetRequest(email);
+  }
+
+  async function resetPassword(email: string, code: string, password: string): Promise<void> {
+    await resetPasswordRequest(email, code, password);
   }
 
   function logout(): void {
@@ -62,7 +95,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, isAdmin: user?.role === 'ADMIN', login, register, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        isAdmin: user?.role === 'ADMIN',
+        login,
+        register,
+        verifyEmail,
+        resendVerification,
+        requestReset,
+        resetPassword,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

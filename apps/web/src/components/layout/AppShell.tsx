@@ -23,7 +23,7 @@ export function AppShell() {
   const navItems = NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin);
 
   const navLinks = (
-    <nav className="flex items-center gap-7" aria-label="Navigasi utama">
+    <nav className="flex flex-col items-start gap-3 md:flex-row md:items-center md:gap-7" aria-label="Navigasi utama">
       {navItems.map((item) => (
         <NavLink
           key={item.to}
@@ -31,8 +31,8 @@ export function AppShell() {
           onClick={() => setMenuOpen(false)}
           className={({ isActive }) =>
             cn(
-              'text-sm font-medium transition-colors',
-              isActive ? 'text-[#288e5e]' : 'text-[#565c56] hover:text-[#288e5e]',
+              'w-full rounded-lg px-2 py-1.5 text-sm font-medium transition-colors md:w-auto md:px-0 md:py-0',
+              isActive ? 'bg-[#e8f4e9] text-[#288e5e] md:bg-transparent' : 'text-[#565c56] hover:text-[#288e5e]',
             )
           }
         >
@@ -85,7 +85,7 @@ export function AppShell() {
         <header className="flex h-16 items-center gap-3 px-4 sm:px-6">
           <div className="text-2xl font-bold tracking-wide text-[#2fa06b]">SPM</div>
 
-          <div className="ml-6 hidden md:block">{navLinks}</div>
+          <div className="ml-6 hidden min-w-0 md:block">{navLinks}</div>
 
           <div className="ml-auto hidden items-center gap-3 md:flex">
             <LivePill socketOpen={socketOpen} updatedAt={updatedAt} />

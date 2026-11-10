@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": false,
+    "sourceMap": false,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {}
+  },
+  "include": ["src/serverless/**/*.ts"],
+  "exclude": ["node_modules", "dist", "prisma", "src/generated", "src/serverless/dev-server.ts"]
+}

@@ -78,14 +78,53 @@ export async function loginRequest(email: string, password: string): Promise<Aut
   });
 }
 
+export type RegisterPending = {
+  needsVerification: true;
+  email: string;
+  expiresAt: string;
+  demoCode?: string;
+};
+
 export async function registerRequest(
   name: string,
   email: string,
   password: string,
-): Promise<AuthResponse> {
-  return api<AuthResponse>('/api/auth/register', {
+): Promise<RegisterPending> {
+  return api<RegisterPending>('/api/auth/register', {
     method: 'POST',
     body: JSON.stringify({ name, email, password }),
+  });
+}
+
+export async function verifyEmailRequest(email: string, code: string): Promise<AuthResponse> {
+  return api<AuthResponse>('/api/auth/verify-email', {
+    method: 'POST',
+    body: JSON.stringify({ email, code }),
+  });
+}
+
+export async function resendVerificationRequest(
+  email: string,
+): Promise<{ email: string; expiresAt: string; demoCode?: string }> {
+  return api<{ email: string; expiresAt: string; demoCode?: string }>('/api/auth/resend-verification', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}
+
+export async function requestResetRequest(
+  email: string,
+): Promise<{ email: string; expiresAt: string; demoCode?: string }> {
+  return api<{ email: string; expiresAt: string; demoCode?: string }>('/api/auth/request-reset', {
+    method: 'POST',
+    body: JSON.stringify({ email }),
+  });
+}
+
+export async function resetPasswordRequest(email: string, code: string, password: string): Promise<void> {
+  await api<{ ok: true }>('/api/auth/reset-password', {
+    method: 'POST',
+    body: JSON.stringify({ email, code, password }),
   });
 }
 

@@ -13,6 +13,7 @@ function env(key: string, fallback: string): string {
 }
 
 const BASE = env('API_BASE', 'http://localhost:4000');
+const DEVICE_TOKEN = env('DEVICE_TOKEN', '');
 const rng = (min: number, max: number) => Math.round((min + Math.random() * (max - min)) * 10) / 10;
 
 const sensors = ['SM-001', 'SM-002', 'SM-003'];
@@ -40,7 +41,10 @@ async function post(code: string): Promise<void> {
   try {
     const res = await fetch(`${BASE}/api/readings`, {
       method: 'POST',
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'content-type': 'application/json',
+        ...(DEVICE_TOKEN ? { 'x-device-token': DEVICE_TOKEN } : {}),
+      },
       body: JSON.stringify({ sensor_code: code, ...body }),
     });
     if (!res.ok) {

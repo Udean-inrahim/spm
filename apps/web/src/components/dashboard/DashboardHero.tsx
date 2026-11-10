@@ -18,7 +18,7 @@ export function DashboardHero({ summary }: { summary: DashboardSummary | null })
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-3 sm:gap-4">
         <WeatherCard
           icon={<ThermometerSun className="h-6 w-6 text-[#d9f4e6]" aria-hidden />}
           title="Suhu rata-rata"
@@ -39,7 +39,7 @@ export function DashboardHero({ summary }: { summary: DashboardSummary | null })
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4 rounded-[10px] border border-white/35 bg-[#28412d]?? p-4 text-white backdrop-blur-md md:grid-cols-[2.3fr_1fr_1fr_1fr]">
+      <div className="grid grid-cols-2 gap-3 rounded-[10px] border border-white/35 bg-[#28412d]/70 p-4 text-white backdrop-blur-md sm:gap-4 md:grid-cols-[2.3fr_1fr_1fr_1fr]">
         <div className="col-span-2 md:col-span-1">
           <p className="mb-2 text-sm">Monitoring tanah</p>
           <p className="text-2xl font-semibold">Kelembapan tanah</p>
@@ -67,7 +67,7 @@ function WeatherCard({
   small: string;
 }) {
   return (
-    <div className="w-44 rounded-[11px] border border-white/35 bg-[#28412d]/30 p-4 text-white shadow-md backdrop-blur-md sm:w-48">
+    <div className="w-full rounded-[11px] border border-white/35 bg-[#28412d]/30 p-4 text-white shadow-md backdrop-blur-md sm:w-48">
       {icon}
       <p className="mb-1 mt-2 text-sm">{title}</p>
       <p className="text-3xl font-semibold">{value}</p>

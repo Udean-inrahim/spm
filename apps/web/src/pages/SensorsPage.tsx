@@ -244,7 +244,7 @@ function DeleteDialog({
         role="dialog"
         aria-modal="true"
         aria-labelledby="delete-title"
-        className="fixed left-1/2 top-1/2 z-40 w-[calc(100vw-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-border bg-card p-6 shadow-card-lg"
+        className="fixed left-1/2 top-1/2 z-40 max-h-[85vh] w-[calc(100vw-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-border bg-card p-5 shadow-card-lg sm:p-6"
       >
         <h2 id="delete-title" className="text-base font-semibold tracking-tight">
           Hapus {sensor.name}?

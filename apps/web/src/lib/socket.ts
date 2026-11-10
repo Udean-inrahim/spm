@@ -25,7 +25,7 @@ export function useLiveSocket(
   enabledRef.current = enabled;
 
   useEffect(() => {
-    if (!enabled) {
+    if (!enabled || !WS_URL) {
       setOpen(false);
       return;
     }

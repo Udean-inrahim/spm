@@ -3,7 +3,7 @@ import { ALERT_SEVERITY, evaluateReading } from '@dirly/shared';
 import { prisma } from '../lib/prisma.js';
 import { broadcasts } from '../lib/events.js';
 import { toAlertDTO, toReadingDTO, toSensorDTO } from '../lib/serialize.js';
-import type { Alert, Reading, Sensor } from '@prisma/client';
+import type { Alert, Reading, Sensor } from '../generated/client/index.js';
 import type { SoilAlertCandidate } from '@dirly/shared';
 
 export const ingestSchema = z.object({

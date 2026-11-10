@@ -3,7 +3,7 @@ import { prisma } from '../lib/prisma.js';
 import { broadcasts } from '../lib/events.js';
 import { toAlertDTO, toSensorDTO } from '../lib/serialize.js';
 import { getSettings } from './reading.service.js';
-import { Prisma, type Sensor } from '@prisma/client';
+import { Prisma, type Sensor } from '../generated/client/index.js';
 import type { AlertType } from '@dirly/shared';
 
 type SensorWithLatest = Sensor & { readings: Prisma.ReadingGetPayload<{ select: { recordedAt: true } }>[] };

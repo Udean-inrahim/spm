@@ -1,11 +1,11 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../src/generated/client/index.js';
 import { DEFAULT_SETTINGS } from '@dirly/shared';
 import { hashPassword } from '../src/lib/password.js';
 import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const prisma = new PrismaClient();
+const prisma = process.env.DATABASE_URL ? new PrismaClient() : null;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const envFile = resolve(__dirname, '../.env');
@@ -21,7 +21,7 @@ function envFromFile(key: string, fallback: string): string {
   }
 }
 
-const adminEmail = envFromFile('SEED_ADMIN_EMAIL', 'admin@dirly.dev');
+const adminEmail = envFromFile('SEED_ADMIN_EMAIL', 'mbgberacun@example.com');
 const adminPassword = envFromFile('SEED_ADMIN_PASSWORD', 'admin123');
 
 const demoPlants = [
@@ -35,11 +35,15 @@ function rng(min: number, max: number): number {
 }
 
 async function main(): Promise<void> {
+  if (!prisma) {
+    console.log('[seed] DATABASE_URL tidak tersedia, seed dilewati');
+    return;
+  }
   const password = await hashPassword(adminPassword);
   await prisma.user.upsert({
     where: { email: adminEmail },
-    update: {},
-    create: { name: 'Administrator', email: adminEmail, password, role: 'ADMIN' },
+    update: { emailVerified: true },
+    create: { name: 'Administrator', email: adminEmail, password, role: 'ADMIN', emailVerified: true },
   });
   console.log(`[seed] admin: ${adminEmail} / ${adminPassword}`);
 
@@ -100,4 +104,4 @@ main()
     console.error(err);
     process.exit(1);
   })
-  .finally(() => prisma.$disconnect());
+  .finally(() => prisma?.$disconnect());

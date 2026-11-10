@@ -11,7 +11,7 @@ import type {
   Reading,
   Setting,
   User,
-} from '@prisma/client';
+} from '../generated/client/index.js';
 
 export function toUserDTO(user: User): UserDTO {
   return {

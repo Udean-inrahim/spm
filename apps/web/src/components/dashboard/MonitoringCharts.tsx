@@ -94,7 +94,7 @@ export function MonitoringCharts() {
 
   return (
     <Card>
-      <CardHeader className="flex-row items-start justify-between gap-3 space-y-0">
+      <CardHeader className="items-start justify-between gap-3 space-y-0 sm:flex-row">
         <div>
           <CardTitle className="flex items-center gap-2">
             <Activity className="h-4 w-4 text-muted-foreground" aria-hidden />
@@ -102,12 +102,12 @@ export function MonitoringCharts() {
           </CardTitle>
           <CardDescription>{range.label} terakhir · grafik kelembapan tanah dan suhu dipisah</CardDescription>
         </div>
-        <div className="flex flex-col items-end gap-2">
+        <div className="flex w-full flex-col items-stretch gap-2 sm:w-auto sm:items-end">
           <Select
             aria-label="Sensor"
             value={sensorId}
             onChange={(e) => setSensorId(e.target.value)}
-            className="w-auto"
+            className="w-full sm:w-auto"
           >
             <option value={SENSOR_ALL}>Semua sensor</option>
             {(summary?.sensors ?? []).map(({ sensor }) => (
@@ -116,7 +116,11 @@ export function MonitoringCharts() {
               </option>
             ))}
           </Select>
-          <div role="group" aria-label="Rentang waktu" className="flex gap-1 rounded-full border border-[#dfe4df] bg-white p-1">
+          <div
+            role="group"
+            aria-label="Rentang waktu"
+            className="flex flex-wrap gap-1 rounded-full border border-[#dfe4df] bg-white p-1"
+          >
             {TIME_RANGES.map((r) => (
               <button
                 key={r.key}
@@ -124,7 +128,7 @@ export function MonitoringCharts() {
                 onClick={() => setRangeKey(r.key)}
                 aria-pressed={rangeKey === r.key}
                 className={cn(
-                  'rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
+                  'flex-1 rounded-full px-2.5 py-1.5 text-xs font-medium transition-colors sm:flex-none sm:px-3',
                   rangeKey === r.key
                     ? 'bg-[#2fa06b] text-white'
                     : 'text-muted-foreground hover:bg-[#f3f8ee] hover:text-foreground',

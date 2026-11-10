@@ -106,7 +106,7 @@ export function SettingsPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <Label htmlFor="st-min-soil">Kelembapan minimum (%)</Label>
                 <Input id="st-min-soil" type="number" min={0} max={99} required value={minSoil} onChange={(e) => setMinSoil(e.target.value)} />
@@ -116,7 +116,7 @@ export function SettingsPage() {
                 <Input id="st-max-soil" type="number" min={1} max={100} required value={maxSoil} onChange={(e) => setMaxSoil(e.target.value)} />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <Label htmlFor="st-min-temp">Suhu minimum (°C)</Label>
                 <Input id="st-min-temp" type="number" step="0.5" required value={minTemp} onChange={(e) => setMinTemp(e.target.value)} />

@@ -29,11 +29,11 @@ export function DashboardPage() {
     <div className="space-y-4">
       <div className="relative overflow-hidden rounded-[18px]">
         <div
-          className="absolute inset-0 h-[440px] bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${HERO_IMG})` }}
           aria-hidden
         />
-        <div className="absolute inset-0 h-[440px] bg-gradient-to-b from-black/55 via-black/30 to-[#eef2e9]/85" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-[#eef2e9]/85" aria-hidden />
         <div className="relative z-10 p-2 sm:p-4">
           <DashboardHero summary={summary} />
           <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">

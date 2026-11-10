@@ -34,7 +34,7 @@ export function loadEnv(): Env {
     mqttUsername: process.env.MQTT_USERNAME || undefined,
     mqttPassword: process.env.MQTT_PASSWORD || undefined,
     deviceToken: process.env.DEVICE_TOKEN || null,
-    seedAdminEmail: process.env.SEED_ADMIN_EMAIL ?? 'admin@dirly.dev',
+    seedAdminEmail: process.env.SEED_ADMIN_EMAIL ?? 'mbgberacun@example.com',
     seedAdminPassword: process.env.SEED_ADMIN_PASSWORD ?? 'admin123',
     nodeEnv: process.env.NODE_ENV ?? 'development',
   };

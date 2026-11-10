@@ -40,7 +40,7 @@ npm run dev
 ```
 
 Open `http://localhost:5173`. If the API was seeded, the login screen shows the demo
-credentials (`admin@dirly.dev` / `admin123`).
+credentials (`mbgberacun@example.com` / `admin123`).
 
 ### Optional: simulated sensor
 
